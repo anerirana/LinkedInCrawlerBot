@@ -12,11 +12,7 @@ import random
 from webdriver_manager.chrome import ChromeDriverManager
 from utils import is_url_valid
 
-class UrlScraper(Thread):
-
-    
-
-    # cloud skills = "cloud computing", "cloud applications", "Cloud Development", "Google Cloud Platform", "GCP", "AWS"
+class UrlScraper(Thread):  
 
     def __init__(self, headless=False):
 
@@ -28,15 +24,12 @@ class UrlScraper(Thread):
         if headless:
             options.add_argument('--headless')
 
-        
-
         self.browser = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
         
         self.skills = ["Google Cloud Platform", "GCP", "AWS", "Cloud Applications", "Cloud Development"]
         self.companies = ["Citi", "Deutsche", "Credit Suisse", "DBS", "JP Morgan", "UBS", "Wells Fargo", "Goldman Sachs", "Google", "Microsoft"]
         # "HSBC", "Barclays", "Citi", "Deutsche", "Credit Suisse", "DBS", "JP Morgan", "UBS", "Wells Fargo", "Goldman Sachs", "Google", "Microsoft"
         # "Cloud Computing", "Google Cloud Platform", "GCP", "AWS", "Cloud Applications", "Cloud Development"
-        # self.universities = []
 
         self.urls = []
 
@@ -47,7 +40,6 @@ class UrlScraper(Thread):
         for skill in self.skills:
             for keyword in self.companies:
                 self.send_google_query(skill, keyword)
-                # time.sleep(60)
                 self.sleep_randomly()
     
         # Closing the Chrome instance
@@ -59,8 +51,6 @@ class UrlScraper(Thread):
         # Rotate user-agents to doge anti-bot policies
         user_agent = self.ua.random
         self.browser.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": '"' + user_agent + '"'})
-        # options.add_argument(f'user-agent={user_agent}')
-
 
         # Open Google browser
         self.browser.get('https://www.google.com/')
@@ -72,36 +62,17 @@ class UrlScraper(Thread):
         search_query.send_keys('site:linkedin.com/in/ AND "India" AND "' + skill + '" AND "' + keyword + '"')
         # e.g. site:linkedin.com/in/ AND "India" AND "cloud computing" AND "citi"
 
-        # .send_keys() to simulate the return key 
+        # send_keys() to simulate the return key 
         search_query.send_keys(Keys.RETURN)
 
         self.scan_google_pages(0, keyword)
-        # page_count = 0
-        # while True:
-        #     try:
-        #         page_count = page_count + 1
-        #         # print("scanning page: " + str(page_count))
-        #         self.scrape_urls()
-        #         # time.sleep(30) 
-        #         self.sleep_randomly()
-        #         next_button = self.browser.find_element_by_id('pnnext')
-        #         next_button.click()
-
-        #     except:
-        #         last_url = ""
-        #         if len(urls) > 0
-        #             last_url = self.urls[-1]
-        #         print("last url written for keyword " + keyword + " is: " + last_url)
-        #         self.write_to_file()
-        #         print("End of search reached. Scanned " +  str(page_count) + " pages")
+    
 
     def scan_google_pages(self, page_count, keyword):
 
         try:
             page_count = page_count + 1
-            # print("scanning page: " + str(page_count))
             self.scrape_urls()
-            # time.sleep(30) 
             self.sleep_randomly()
             next_button = self.browser.find_element_by_id('pnnext')
             next_button.click()

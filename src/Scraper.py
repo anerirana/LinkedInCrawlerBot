@@ -170,13 +170,6 @@ class Scraper(Thread):
         try:
             location = self.browser.execute_script(
             "return document.getElementsByClassName('pv-top-card--list-bullet')[0].children[0].innerText")
-            # location = self.browser.execute_script(
-            #     "return (function(){"
-            #         "var location = '';"
-            #         "var "
-            #         "return location;"
-            #     "})();"
-            # )
             parsed_location = Location(location)
         except WebDriverException:
             parsed_location = Location('')
