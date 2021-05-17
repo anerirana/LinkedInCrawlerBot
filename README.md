@@ -24,6 +24,7 @@ A configurator will be initialised to accept console inputs for
 2. LinkedIn password
 3. Input file name - Containing list of profiles urls
 4. Output file name - For storing collected data
+5. Append timestamp (Y/N)
 
 This collects following information:
 1. Name
